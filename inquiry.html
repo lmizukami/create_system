@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+	<head>
+		<meta charset="UTF-8">
+		<title>問い合わせフォーム</title>
+		<script src="C:/angular/angular-1.0.1.min.js"></script>
+		<script src="https://smtpjs.com/v2/smtp.js"></script>
+		<script src="mscr.js"></script>
+		<link rel="stylesheet" type="text/css" href="main.css">
+	</head>
+ 
+	<body>
+		<h1>問い合わせフォーム</h1>
+		<div id="main_form" ng-controller="mainCtrl" >
+			<p ng-show="regItems">{{regItems}}</p>
+			<form novalidate name="myForm" ng-submit="addUser()">
+				<p>
+					名前:<input type="text" name="name" ng-model="user.name" required ng-minlength="5"  ng-maxlength="8">
+					<span ng-show="myForm.name.$error.required">必須項目</span>
+					<span ng-show="myForm.name.$error.minlength">Too Short</span>
+					<span ng-show="myForm.name.$error.maxlength">Too Long</span>
+				</p>
+				<p>
+					Email:<input type="email" name="email" ng-model="user.email" >
+					<span ng-show="myForm.email.$error.required">必須項目</span>
+				</p>
+				<p>
+					Web:<input type="url" name="url" ng-model="user.url" >
+					<span ng-show="myForm.url.$error.url">Not vaild web url</span>
+				</p>
+				<p>
+					概要:
+					<textarea id="content" rows="5" cols="50" ng-model="user.memo" ng-maxlenght="140"></textarea>{{140 - user.memo.length}}
+				</p>
+				<p><input type="submit" value="送信" ng-if="myForm.$valid" onClick="send()"></p>
+			</form>
+		</div>
+	</body>
+</html>
